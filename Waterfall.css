@@ -1,0 +1,115 @@
+/* CSS */
+div.qv-object-Waterfall {  
+	width:100%;
+	height:100%;
+	overflow:auto;
+}
+
+/*
+.qv-object-Waterfall .bar.total rect.barZone {
+  fill: steelblue;
+}
+
+.qv-object-Waterfall .bar.positive rect.barZone {
+  fill: darkolivegreen;
+}
+.qv-object-Waterfall .bar.negative rect.barZone {
+  fill: crimson;
+}
+
+.qv-object-Waterfall .bar.other rect.barZone {
+  fill: lightgrey;
+}*/
+
+.qv-object-Waterfall .bar rect.barZone {
+  opacity: 1;
+}
+
+.qv-object-Waterfall .bar rect.selectableZone {
+  opacity: 0;
+  fill: white;
+}
+
+.qv-object-Waterfall .bar rect.selected {
+  opacity: 0.8;
+}
+
+.qv-object-Waterfall .bar line.connector {
+  stroke: grey;
+  stroke-dasharray: 3;
+}
+
+.qv-object-Waterfall .bar text {
+  fill: white;
+  text-anchor: middle;
+  font-family: QlikView Sans,sans-serif;
+  font-size: 13px;
+  line-height: 1em;
+  /*color:#595959;
+  fill:#595959;*/
+}
+
+.qv-object-Waterfall .axis text {
+  /*font: 10px sans-serif;*/
+  font-family: QlikView Sans,sans-serif;
+  font-size: 13px;
+  line-height: 1em;
+  /*color:#595959;*/
+  fill:#595959;
+}
+
+.qv-object-Waterfall .axis path,
+.qv-object-Waterfall .axis line,
+.qv-object-Waterfall .grid path,
+.qv-object-Waterfall .grid line{
+  fill: none;
+  stroke: #CCCCCC;
+  shape-rendering: crispEdges;
+}
+
+.qv-object-Waterfall .grid path{
+  opacity: 0;
+}
+
+
+
+
+/**********info bulle CSS **********************/
+
+.qv-object-Waterfall.d3-tip {
+	 position: absolute;
+      line-height: 1;
+      padding: 6px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      border-radius: 5px;
+      font-size: 13px;
+	  z-index: 100;
+	  width:auto;
+	  height:auto;
+	  overflow:visible;
+	   
+    }
+ 
+   
+.qv-object-Waterfall.d3-tip:after {
+      box-sizing: border-box;
+      display: inline;
+      font-size: 10px;
+      width: 100%;
+      line-height: 1;
+      color: rgba(0, 0, 0, 0.8);
+      content: "\25BC";
+      position: absolute;
+      text-align: center;
+	  
+    }
+ 
+  
+.qv-object-Waterfall.d3-tip.n:after {
+      margin: -2px 0 0 0;
+      top: 100%;
+      left: 0;
+    }
+	
+
