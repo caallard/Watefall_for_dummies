@@ -333,22 +333,37 @@ function ( qlik, $, d3, cssContent, format, moment) {
 			var fields = fullArray.fields;
 			
 			/*
-			U:Auto
-			F:Nombre
-			M:Devise
-			D:Date
-			IV:Durée
-			R:Personaliser
+			U for UNKNOWN type.
+			A for ASCII; Numeric fields values contain only standard ASCII characters.
+			I for INTEGER; Numeric fields values are shown as integer numbers.
+			R for REAL; Numeric fields values are shown as real numbers.
+			F for FIX; Numeric fields values are shown as numbers with a fix number of decimals.
+			M for MONEY; Numeric fields values are shown as in the money format.
+			D for DATE; Numeric fields values are shown as dates.
+			T for TIME; Numeric fields values are shown as times.
+			TS for TIMESTAMP; Numeric fields values are shown as time stamps.
+			IV for INTERVAL; Numeric fields values are shown as intervals.
 			*/
+			
 			var numberFormat='';
-			var numberType=layout.qHyperCube.qMeasureInfo[0].qNumFormat.qType;
+			var mesure=layout.qHyperCube.qMeasureInfo[0];
+			var numberType=mesure.qNumFormat.qType;
 			if(numberType=='F' || numberType=='M' || numberType=='R' ){
-				numberFormat=layout.qHyperCube.qMeasureInfo[0].qNumFormat.qFmt.split(';')[0];
-				if(numberFormat.indexOf(layout.qHyperCube.qMeasureInfo[0].qNumFormat.qDec)== -1){
-					numberFormat+=layout.qHyperCube.qMeasureInfo[0].qNumFormat.qDec;
+				if(mesure.qNumFormat.qFmt===undefined){
+					var thou='';
+					if(mesure.qNumFormat.qUseThou != 0){
+						thou=mesure.qNumFormat.qThou;
+					}
+					numberFormat='#'+thou+'##0'+mesure.qNumFormat.qDec + '0'.repeat(mesure.qNumFormat.qnDec);
+				}else{
+					numberFormat=mesure.qNumFormat.qFmt.split(';')[0];
+					if(numberFormat.indexOf(mesure.qNumFormat.qDec)== -1){
+						numberFormat+=mesure.qNumFormat.qDec;
+					}
+
 				}
 			}else if(numberType=='D' || numberType=='IV' ){
-				numberFormat=layout.qHyperCube.qMeasureInfo[0].qNumFormat.qFmt.split(';')[0];
+				numberFormat=mesure.qNumFormat.qFmt.split(';')[0];
 			}
 			
 			
@@ -589,6 +604,13 @@ function ( qlik, $, d3, cssContent, format, moment) {
 				if(otherObject.start===undefined){}else{
 					dataEnd.push(otherObject);
 					otherObject={};
+				}
+				
+				if(minValue===undefined || cumulative<minValue){
+					minValue=cumulative;
+				}
+				if(maxValue===undefined || cumulative>maxValue){
+					maxValue=cumulative;
 				}
 				dataEnd.push({
 					name: 'Total '+key1,
