@@ -473,16 +473,51 @@ function ( qlik, $, d3, cssContent, format, moment) {
 					dataIntermediate[i].mode=mode;
 				}
 				
-				
+				var dI = dataIntermediate;
 				dataIntermediate.sort(function(a, b) {
 				  if(layout.params.invertOrder){
-				  	return a.value - b.value;
+				  	if(b.mode==a.mode){
+						return a.value - b.value;
+					}else{
+						if(b.mode=='show'){
+							if(b.value>=0){
+								return -1;
+							}else{
+								return 1;
+							}
+						}else{
+							//return -1;
+							if(b.value>=0){
+								return 1;
+							}else{
+								return -1;
+							}
+						}
+					}
 				  }else{
-				  	return b.value - a.value;
+				  	if(b.mode==a.mode){
+						return b.value - a.value;
+					}else{
+						if(b.mode=='show'){
+							if(b.value>=0){
+								return 1;
+							}else{
+								return -1;
+							}
+						}else{
+							//return -1;
+							if(b.value>=0){
+								return -1;
+							}else{
+								return 1;
+							}
+						}
+					}
+				  	
+					
 				  }
 				  
-				});
-				
+				});				
 
 				
 				var totalValue;
@@ -615,7 +650,7 @@ function ( qlik, $, d3, cssContent, format, moment) {
 				width = zonewidth - margin.left - margin.right,
 				height = zoneheight - margin.top - margin.bottom,
 				padding = 0.3;
-			console.log( '--------------4' );
+			console.log( '--------------4.1' );
 				
 			var x = d3.scaleBand()
     			.range([0, width])
