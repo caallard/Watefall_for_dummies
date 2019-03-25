@@ -473,7 +473,6 @@ function ( qlik, $, d3, cssContent, format, moment) {
 					dataIntermediate[i].mode=mode;
 				}
 				
-				var dI = dataIntermediate;
 				dataIntermediate.sort(function(a, b) {
 				  if(layout.params.invertOrder){
 				  	if(b.mode==a.mode){
