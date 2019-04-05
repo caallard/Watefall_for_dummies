@@ -637,7 +637,7 @@ function ( qlik, $, d3, cssContent, format, moment) {
 			});
 
 			var offset= 0;
-			if(Math.round(minValue - (maxValue-minValue)/3)>0 && layout.params.automaticOffset){
+			if(Math.round(minValue - (maxValue-minValue)/3)>0 && layout.params.automaticOffset && maxValue!=minValue){
 				offset=Math.round(minValue - (maxValue-minValue)/8);
 			}
 			
